@@ -50,17 +50,17 @@
   <ItemGroup>
     <Compile Include="Concrete\BasePrinter.cs" />
     <Compile Include="Concrete\CanonPrinter.cs" />
+    <Compile Include="Concrete\Logger.cs" />
     <Compile Include="Concrete\PrinterService.cs" />
-    <Compile Include="Concrete\TextDataProvider.cs" />
+    <Compile Include="Concrete\FileDataProvider.cs" />
     <Compile Include="Concrete\EpsonPrinter.cs" />
     <Compile Include="Concrete\Printer.cs" />
-    <Compile Include="Interfaces\ITextDataProvider.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IFileLogger.cs" />
     <Compile Include="Interfaces\IPrinter.cs" />
     <Compile Include="Interfaces\IPrinterService.cs" />
     <Compile Include="Concrete\PrintArgs.cs" />
     <Compile Include="Concrete\PrintersCollection.cs" />
-    <Compile Include="Interfaces\IProvider.cs" />
+    <Compile Include="Interfaces\IPrintStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

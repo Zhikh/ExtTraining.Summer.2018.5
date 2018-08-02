@@ -9,6 +9,16 @@ namespace No8.Solution.Concrete
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Model = model ?? throw new ArgumentNullException(nameof(model));
+
+            if (name  == string.Empty)
+            {
+                throw new ArgumentException(nameof(name));
+            }
+
+            if (model == string.Empty)
+            {
+                throw new ArgumentException(nameof(model));
+            }
         }
 
         public string Name { get; }
@@ -17,19 +27,19 @@ namespace No8.Solution.Concrete
 
         public event EventHandler<PrintArgs> StartPrintChange = delegate { };
         public event EventHandler<PrintArgs> EndPrintChange = delegate { };
-
-        public TResult Print<TResult>(IProvider<TResult> resource)
+        
+        public TResult Print<TSource, TResult>(TSource data)
         {
             OnStartPrintChange(this, new PrintArgs(Name, Model));
 
-            var data = PrintData(resource);
+            TResult result = (dynamic)PrintData(data);
 
             OnEndPrintChange(this, new PrintArgs(Name, Model));
 
-            return data;
+            return result;
         }
 
-        internal abstract TResult PrintData<TResult>(IProvider<TResult> resource);
+        internal abstract object PrintData<T>(T data);
 
         private void OnEndPrintChange(object sender, PrintArgs eventArgs)
         {

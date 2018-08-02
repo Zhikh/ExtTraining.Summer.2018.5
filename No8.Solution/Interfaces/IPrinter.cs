@@ -11,7 +11,7 @@ namespace No8.Solution.Interfaces
         string Name { get; }
         
         string Model { get; }
-
-        TResult Print<TResult>(IProvider<TResult> resource);
+        
+        TResult Print<TSource, TResult>(TSource data);
     }
 }

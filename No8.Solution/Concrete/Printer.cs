@@ -1,8 +1,4 @@
-﻿using No8.Solution.Interfaces;
-using System;
-using System.Collections.Generic;
-
-namespace No8.Solution.Concrete
+﻿namespace No8.Solution.Concrete
 {
     public class Printer : BasePrinter
     {
@@ -10,13 +6,10 @@ namespace No8.Solution.Concrete
         {
         }
 
-        /*
-         * если это бы не был симулятор, принтер бы принимал данные для печати, а не извлекал бы их
-         * интерфейс IPrinter позволяет принимать и данные и возвращать любой результат
-         */
-        internal override TResult PrintData<TResult>(IProvider<TResult> resource)
+        // тут может быть еще и обработка данных
+        internal override object PrintData<T>(T data)
         {
-            return resource.Load();
+            return data;
         }
     }
 }

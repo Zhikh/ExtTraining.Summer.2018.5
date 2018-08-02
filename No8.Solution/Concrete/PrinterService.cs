@@ -9,7 +9,7 @@ namespace No8.Solution.Concrete
      * получает данные об их активности и логирует их,
      * ничего не сказанно, что она ещё и управлением печати занимается
      */
-    public  class PrinterService/*<TResource, TResult>*/ : IPrinterService/*<TResource, TResult>*/
+    public  class PrinterService : IPrinterService
     {
         private readonly PrintersCollection _printers;
         private readonly IFileLogger _logger = new FileLogger();    // не есть хорошо
@@ -32,6 +32,11 @@ namespace No8.Solution.Concrete
 
         public void Add(IPrinter resource)
         {
+            if (resource == null)
+            {
+                throw new ArgumentNullException(nameof(resource));
+            }
+
             try
             {
                 _printers.Add(resource);
@@ -47,6 +52,11 @@ namespace No8.Solution.Concrete
 
         public void Remove(IPrinter resource)
         {
+            if (resource == null)
+            {
+                throw new ArgumentNullException(nameof(resource));
+            }
+
             try
             {
                 _printers.Remove(resource);
