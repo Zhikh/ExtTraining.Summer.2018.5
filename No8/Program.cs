@@ -13,8 +13,8 @@ namespace No8
         {
             Console.WriteLine("Select your choice:");
             Console.WriteLine("1:Add new printer");
-            Console.WriteLine("2:Print on Canon");
-            Console.WriteLine("3:Print on Epson");
+            Console.WriteLine("2:Print on Canon"); // захардкожено имя
+            Console.WriteLine("3:Print on Epson"); // принтеров может быть много и нет печати для добавленного принтера
 
             var key = Console.ReadKey();
 
@@ -39,6 +39,8 @@ namespace No8
             }
         }
 
+        #region привязка под конкретный принтер, возможно не имеет смысла выделять отдельным методом
+        // TODO: return to view on containing
         private static void Print(EpsonPrinter epsonPrinter)
         {
             PrinterManager.Print(epsonPrinter);
@@ -50,6 +52,7 @@ namespace No8
             PrinterManager.Print(canonPrinter);
             PrinterManager.Log("Printed on Canon");
         }
+        #endregion
 
         private static void CreatePrinter()
         {

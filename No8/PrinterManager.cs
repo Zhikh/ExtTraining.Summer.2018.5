@@ -16,8 +16,10 @@ namespace No8
 
         public static List<object> Printers { get; set; }
 
+        // IPrinter + не его обязанность заниматься коллекцией принтеров напрямую(?)
         public static void Add(Printer p1)
         {
+            // логика ui + бизнесс логика
             Console.WriteLine("Enter printer name");
             p1.Name = Console.ReadLine();
             Console.WriteLine("Enter printer model");
@@ -30,6 +32,7 @@ namespace No8
             }
         }
 
+        // привязываемся к конкретной реализации
         public static void Print(EpsonPrinter p1)
         {
             Log("Print started");
@@ -40,6 +43,7 @@ namespace No8
             Log("Print finished");
         }
 
+        // привязываемся к конкретной реализации
         public static void Print(CanonPrinter p1)
         {
             Log("Print started");
@@ -50,11 +54,13 @@ namespace No8
             Log("Print finished");
         }
 
+        // часть обязанностей логгера
         public static void Log(string s)
         {
             File.AppendText("log.txt").Write(s);
         }
 
+        // использование кастомного делегата: возможно не его обязанность
         public static event PrinterDelegate OnPrinted;
     }
 }
