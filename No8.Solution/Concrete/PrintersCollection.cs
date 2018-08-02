@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace No8.Solution
 {
@@ -18,9 +17,9 @@ namespace No8.Solution
             }
 
             // TODO: save to logger
-            if (this.IsContain(printer))
+            if (GetValue(printer) != null)
             {
-                throw new ArgumentException($"The printer: {printer.Name} {printer.Model} - exists!");
+                throw new ArgumentException($"The printer: {printer.Name} ({printer.Model}) - aleady exists!");
             }
 
             _printers.Add(printer);
@@ -33,32 +32,14 @@ namespace No8.Solution
                 throw new ArgumentNullException(nameof(printer));
             }
 
-            // TODO: save to logger
-            if (!this.IsContain(printer))
+            var value = GetValue(printer);
+
+            if (value == null)
             {
-                throw new ArgumentException($"The printer: {printer.Name} {printer.Model} - doesn't exist!");
+                throw new ArgumentException($"The printer: {printer.Name} ({printer.Model}) - doesn't exist!");
             }
 
-            _printers.Add(printer);
-        }
-
-        public bool IsContain(IPrinter printer)
-        {
-            if (printer == null)
-            {
-                throw new ArgumentNullException(nameof(printer));
-            }
-
-            foreach (var element in _printers)
-            {
-                if (element.Name == printer.Name && 
-                    element.Model == printer.Model)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            _printers.Remove(value);
         }
 
         public IEnumerator<IPrinter> GetEnumerator()
@@ -73,5 +54,25 @@ namespace No8.Solution
         {
             return GetEnumerator();
         }
+
+        private IPrinter GetValue(IPrinter printer)
+        {
+            if (printer == null)
+            {
+                throw new ArgumentNullException(nameof(printer));
+            }
+
+            foreach (var element in _printers)
+            {
+                if (element.Name == printer.Name &&
+                    element.Model == printer.Model)
+                {
+                    return element;
+                }
+            }
+
+            return null;
+        }
+
     }
 }

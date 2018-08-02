@@ -30,43 +30,45 @@ namespace No8.Solution.Concrete
             _printers = new PrintersCollection();
         }
 
-        public void Add(IPrinter resource)
+        public void Add(IPrinter printer)
         {
-            if (resource == null)
+            if (printer == null)
             {
-                throw new ArgumentNullException(nameof(resource));
+                throw new ArgumentNullException(nameof(printer));
             }
 
             try
             {
-                _printers.Add(resource);
+                _printers.Add(printer);
+                _logger.LogInfo($"{printer.Name} ({printer.Model}) was added!");
 
-                resource.StartPrintChange += StartPrintChanged;
-                resource.EndPrintChange += EndPrintChanged;
+                printer.StartPrintChange += StartPrintChanged;
+                printer.EndPrintChange += EndPrintChanged;
             }
             catch (ArgumentException ex)
             {
-                _logger.LogError("On add", ex);
+                _logger.LogError($"On Add: {ex.Message}!", ex);
             }
         }
 
-        public void Remove(IPrinter resource)
+        public void Remove(IPrinter printer)
         {
-            if (resource == null)
+            if (printer == null)
             {
-                throw new ArgumentNullException(nameof(resource));
+                throw new ArgumentNullException(nameof(printer));
             }
 
             try
             {
-                _printers.Remove(resource);
+                _printers.Remove(printer);
+                _logger.LogInfo($"{printer.Name} ({printer.Model}) was removed!");
 
-                resource.StartPrintChange -= StartPrintChanged;
-                resource.EndPrintChange -= EndPrintChanged;
+                printer.StartPrintChange -= StartPrintChanged;
+                printer.EndPrintChange -= EndPrintChanged;
             }
             catch (ArgumentException ex)
             {
-                _logger.LogError("On Remove", ex);
+                _logger.LogError($"On Remove: {ex.Message}!", ex);
             }
         }
 
