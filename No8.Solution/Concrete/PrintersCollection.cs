@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace No8.Solution
 {
@@ -15,8 +16,7 @@ namespace No8.Solution
             {
                 throw new ArgumentNullException(nameof(printer));
             }
-
-            // TODO: save to logger
+            
             if (GetValue(printer) != null)
             {
                 throw new ArgumentException($"The printer: {printer.Name} ({printer.Model}) - aleady exists!");
@@ -40,6 +40,16 @@ namespace No8.Solution
             }
 
             _printers.Remove(value);
+        }
+
+        public IPrinter Find(Func<IPrinter,bool> predicate)
+        {
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            return _printers.FirstOrDefault(predicate);
         }
 
         public IEnumerator<IPrinter> GetEnumerator()

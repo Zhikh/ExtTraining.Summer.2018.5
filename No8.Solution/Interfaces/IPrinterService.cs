@@ -6,6 +6,7 @@ namespace No8.Solution.Interfaces
     {
         void Add(IPrinter resource);
         void Remove(IPrinter resource);
+        string Print(string name, string model, string data);
 
         IEnumerable<IPrinter> GetAll();
     }

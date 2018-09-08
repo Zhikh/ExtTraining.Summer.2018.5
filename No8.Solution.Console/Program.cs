@@ -1,8 +1,6 @@
 ﻿using No8.Solution.Concrete;
 using No8.Solution.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace No8.Solution.Console
@@ -20,11 +18,11 @@ namespace No8.Solution.Console
                 IEnumerable<IPrinter> printers = printerService.GetAll();
 
                 PrintMenu(printers);
-                ExucuteAction(printerService, printers);
+                ExecuteAction(printerService, printers);
             }
         }
 
-        private static void ExucuteAction(PrinterService printerService, IEnumerable<IPrinter> printers)
+        private static void ExecuteAction(PrinterService printerService, IEnumerable<IPrinter> printers)
         {
             string value = System.Console.ReadLine();
 
@@ -58,7 +56,10 @@ namespace No8.Solution.Console
                         {
                             if (key == i)
                             {
-                                System.Console.WriteLine(printer.Print<string, string>("From"));
+                                System.Console.WriteLine("Data:");
+                                var data = System.Console.ReadLine();
+                                
+                                System.Console.WriteLine(printerService.Print(printer.Name, printer.Model, data));
                             }
                         }
                         break;
@@ -68,9 +69,9 @@ namespace No8.Solution.Console
 
         private static void GetPrinterInfo(out string name, out string model)
         {
-            System.Console.WriteLine("Название:");
+            System.Console.WriteLine("Name:");
             name = System.Console.ReadLine();
-            System.Console.WriteLine("Модель:");
+            System.Console.WriteLine("Model:");
             model = System.Console.ReadLine();
         }
 
